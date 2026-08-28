@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class Solution {
+
+    public static int daysFromStart(String date) {
+        String[] parts = date.split("-");
+
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int day = Integer.parseInt(parts[2]);
+
+        int[] daysInMonth = {
+            31, 28, 31, 30, 31, 30,
+            31, 31, 30, 31, 30, 31
+        };
+
+        int totalDays = 0;
+
+        // Add days for previous years
+        for (int y = 1971; y < year; y++) {
+            totalDays += isLeapYear(y) ? 366 : 365;
+        }
+
+        // Add days for previous months in the current year
+        for (int m = 1; m < month; m++) {
+            totalDays += daysInMonth[m - 1];
+
+            if (m == 2 && isLeapYear(year)) {
+                totalDays++;
+            }
+        }
+
+        // Add days in the current month
+        totalDays += day;
+
+        return totalDays;
+    }
+
+    public static boolean isLeapYear(int year) {
+        return (year % 400 == 0) ||
+               (year % 4 == 0 && year % 100 != 0);
+    }
+
+    public static int daysBetweenDates(String date1, String date2) {
+        return Math.abs(daysFromStart(date1) - daysFromStart(date2));
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String date1 = sc.next();
+        String date2 = sc.next();
+
+        System.out.println(daysBetweenDates(date1, date2));
+
+        sc.close();
+    }
+}
