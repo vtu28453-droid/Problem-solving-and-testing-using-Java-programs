@@ -1,0 +1,32 @@
+class Solution {
+    public int[][] transpose(int[][] matrix) {
+        int m = matrix.length;        // number of rows
+        int n = matrix[0].length;     // number of columns
+        int[][] result = new int[n][m]; // transposed dimensions
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                result[j][i] = matrix[i][j];
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[][] matrix1 = {{1,2,3},{4,5,6},{7,8,9}};
+        int[][] transposed1 = sol.transpose(matrix1);
+        printMatrix(transposed1); // [[1,4,7],[2,5,8],[3,6,9]]
+
+        int[][] matrix2 = {{1,2,3},{4,5,6}};
+        int[][] transposed2 = sol.transpose(matrix2);
+        printMatrix(transposed2); // [[1,4],[2,5],[3,6]]
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            System.out.println(java.util.Arrays.toString(row));
+        }
+    }
+}
