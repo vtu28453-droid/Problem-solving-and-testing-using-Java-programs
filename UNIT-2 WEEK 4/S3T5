@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+class Solution {
+    public static String timeConversion(String s) {
+        String ampm = s.substring(8); // AM or PM
+        int hour = Integer.parseInt(s.substring(0, 2));
+        String minutesSeconds = s.substring(2, 8); // :MM:SS
+
+        if (ampm.equals("AM")) {
+            if (hour == 12) {
+                hour = 0; // midnight case
+            }
+        } else { // PM case
+            if (hour != 12) {
+                hour += 12; // add 12 for PM times except 12 PM
+            }
+        }
+
+        String hourStr = String.format("%02d", hour);
+        return hourStr + minutesSeconds;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine(); // read single input
+        System.out.println(timeConversion(s)); // print single output
+    }
+}
